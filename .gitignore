@@ -48,8 +48,9 @@ htmlcov/
 data/raw/*.csv
 data/raw/*.xlsx
 data/processed/*.parquet
-data/churnguard.db
+data/processed/*.csv
 !data/processed/cleaned_transactions_sample.csv
+data/churnguard.db
 
 # OS
 .DS_Store
