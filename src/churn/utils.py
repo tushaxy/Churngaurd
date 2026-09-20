@@ -1,5 +1,6 @@
 """Utility functions for logging, configuration loading, and serialization."""
 
+import io
 import json
 import logging
 import os
@@ -8,9 +9,53 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
+import pandas as pd
 import yaml
 
 _LOGGERS: dict[str, logging.Logger] = {}
+
+
+def read_csv_robust(file_or_path: Any, **kwargs: Any) -> pd.DataFrame:
+    """Reads a CSV file, path, or buffer using multi-encoding detection to prevent decode errors.
+
+    Specifically resolves 'utf-8 codec can't decode byte 0x96' and other Windows / Excel
+    encoding anomalies by trying ['utf-8', 'utf-8-sig', 'cp1252', 'latin1', 'iso-8859-1']
+    and falling back to replacement characters if needed.
+
+    Args:
+        file_or_path: File path (str or Path), Streamlit UploadedFile, or bytes buffer.
+        **kwargs: Additional keyword arguments passed to pd.read_csv.
+
+    Returns:
+        Loaded pandas DataFrame.
+    """
+    if isinstance(file_or_path, (str, Path)):
+        path = Path(file_or_path)
+        if not path.exists():
+            raise FileNotFoundError(f"CSV file not found: {file_or_path}")
+        with open(path, "rb") as f:
+            content_bytes = f.read()
+    elif hasattr(file_or_path, "getvalue"):
+        content_bytes = file_or_path.getvalue()
+    elif hasattr(file_or_path, "read"):
+        content_bytes = file_or_path.read()
+        if hasattr(file_or_path, "seek"):
+            file_or_path.seek(0)
+    elif isinstance(file_or_path, (bytes, bytearray)):
+        content_bytes = bytes(file_or_path)
+    else:
+        return pd.read_csv(file_or_path, **kwargs)
+
+    encodings = ["utf-8", "utf-8-sig", "cp1252", "latin1", "iso-8859-1"]
+    for enc in encodings:
+        try:
+            decoded = content_bytes.decode(enc)
+            return pd.read_csv(io.StringIO(decoded), **kwargs)
+        except (UnicodeDecodeError, LookupError):
+            continue
+
+    decoded = content_bytes.decode("utf-8", errors="replace")
+    return pd.read_csv(io.StringIO(decoded), **kwargs)
 
 
 def get_logger(name: str = "churnguard", level: str | None = None) -> logging.Logger:

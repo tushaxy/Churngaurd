@@ -1,8 +1,11 @@
 """Shared utility functions, Plotly visual theming, and data loaders for Streamlit."""
 
+from __future__ import annotations
+
+import io
 import os
-import sqlite3
 from pathlib import Path
+import sqlite3
 from typing import Any
 
 import pandas as pd
@@ -16,36 +19,72 @@ from src.churn.utils import get_logger, load_json
 
 logger = get_logger(__name__)
 
+
+def read_csv_robust(file_or_path: Any, **kwargs: Any) -> pd.DataFrame:
+    """Reads a CSV file, path, or buffer using multi-encoding detection to prevent decode errors.
+
+    Specifically resolves 'utf-8 codec can't decode byte 0x96' and other Windows / Excel
+    encoding anomalies by trying ['utf-8', 'utf-8-sig', 'cp1252', 'latin1', 'iso-8859-1']
+    and falling back to replacement characters if needed.
+    """
+    if isinstance(file_or_path, (str, Path)):
+        path = Path(file_or_path)
+        if not path.exists():
+            raise FileNotFoundError(f"CSV file not found: {file_or_path}")
+        with open(path, "rb") as f:
+            content_bytes = f.read()
+    elif hasattr(file_or_path, "getvalue"):
+        content_bytes = file_or_path.getvalue()
+    elif hasattr(file_or_path, "read"):
+        content_bytes = file_or_path.read()
+        if hasattr(file_or_path, "seek"):
+            file_or_path.seek(0)
+    elif isinstance(file_or_path, (bytes, bytearray)):
+        content_bytes = bytes(file_or_path)
+    else:
+        return pd.read_csv(file_or_path, **kwargs)
+
+    encodings = ["utf-8", "utf-8-sig", "cp1252", "latin1", "iso-8859-1"]
+    for enc in encodings:
+        try:
+            decoded = content_bytes.decode(enc)
+            return pd.read_csv(io.StringIO(decoded), **kwargs)
+        except (UnicodeDecodeError, LookupError):
+            continue
+
+    decoded = content_bytes.decode("utf-8", errors="replace")
+    return pd.read_csv(io.StringIO(decoded), **kwargs)
+
 API_BASE_URL = os.getenv("FASTAPI_URL", "http://localhost:8000")
 
-# Unified Brand Color Palette
-COLOR_PRIMARY = "#4F46E5"  # Indigo
-COLOR_TEAL = "#14B8A6"  # Teal
-COLOR_EMERALD = "#10B981"  # Emerald
-COLOR_AMBER = "#F59E0B"  # Amber
-COLOR_CORAL = "#EF4444"  # Coral
-COLOR_PURPLE = "#8B5CF6"  # Purple
+# Enterprise Color Palette (Slate, Sapphire, Emerald, Amber, Crimson)
+COLOR_PRIMARY = "#2563EB"  # Sapphire Blue
+COLOR_NAVY = "#1E3A8A"  # Deep Navy
+COLOR_EMERALD = "#059669"  # Retained / Low Risk
+COLOR_AMBER = "#D97706"  # Watch / Medium Risk
+COLOR_CORAL = "#E11D48"  # Churn / High Risk
+COLOR_PURPLE = "#7C3AED"  # Purple
 COLOR_SLATE = "#64748B"  # Slate Gray
-COLOR_DARK = "#0F172A"  # Deep Slate
+COLOR_DARK = "#0F172A"  # Obsidian Slate
 
 SEGMENT_COLORS = {
-    "Champions": "#4F46E5",
-    "Loyal Customers": "#14B8A6",
-    "Potential Loyalist": "#10B981",
-    "New Customers": "#3B82F6",
-    "Promising": "#8B5CF6",
-    "Need Attention": "#F59E0B",
-    "At Risk": "#EF4444",
+    "Champions": "#1E40AF",
+    "Loyal Customers": "#0284C7",
+    "Potential Loyalist": "#0D9488",
+    "New Customers": "#2563EB",
+    "Promising": "#7C3AED",
+    "Need Attention": "#D97706",
+    "At Risk": "#DC2626",
     "Can't Lose Them": "#991B1B",
-    "Hibernating": "#94A3B8",
-    "Lost": "#64748B",
+    "Hibernating": "#64748B",
+    "Lost": "#475569",
 }
 
 RISK_COLORS = {
-    "Low": "#10B981",
-    "Medium": "#F59E0B",
-    "High": "#EF4444",
-    "Critical": "#7F1D1D",
+    "Low": "#059669",
+    "Medium": "#D97706",
+    "High": "#DC2626",
+    "Critical": "#991B1B",
 }
 
 
@@ -57,29 +96,97 @@ def inject_custom_css() -> None:
             st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 
+def render_header_command_bar(
+    breadcrumb: str,
+    title: str,
+    subtitle: str,
+    model_tag: str = "RF-SMOTE v1.0.0",
+) -> None:
+    """Renders a high-end enterprise SaaS command bar header."""
+    is_live = check_api_health()
+    api_status_html = (
+        '<span class="badge-meta active"><span style="color:#10B981;">●</span> API Online</span>'
+        if is_live
+        else '<span class="badge-meta"><span style="color:#F59E0B;">●</span> Local Engine</span>'
+    )
+
+    st.markdown(
+        f"""
+        <div class="command-bar">
+            <div class="command-bar-title-wrap">
+                <div class="command-bar-breadcrumb">{breadcrumb}</div>
+                <h1 class="command-bar-title">{title}</h1>
+                <p class="command-bar-subtitle">{subtitle}</p>
+            </div>
+            <div class="command-bar-meta">
+                {api_status_html}
+                <span class="badge-meta">{model_tag}</span>
+                <span class="badge-meta">τ = 0.900</span>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def render_metric_card(
+    label: str,
+    value: str,
+    footer_text: str = "",
+    pill_text: str = "",
+    pill_type: str = "neutral",
+    tag: str = "",
+) -> str:
+    """Renders a polished, enterprise-grade KPI metric card."""
+    pill_html = f'<span class="metric-pill {pill_type}">{pill_text}</span>' if pill_text else ""
+    tag_html = f'<span class="metric-tag">{tag}</span>' if tag else ""
+
+    return f"""
+    <div class="metric-card">
+        <div class="metric-header">
+            <span class="metric-label">{label}</span>
+            {tag_html}
+        </div>
+        <div class="metric-value">{value}</div>
+        <div class="metric-footer">
+            {pill_html}
+            <span>{footer_text}</span>
+        </div>
+    </div>
+    """
+
+
 def get_plotly_layout(
     title: str | None = None,
-    height: int = 420,
+    height: int = 380,
     show_legend: bool = True,
 ) -> dict[str, Any]:
-    """Generates a cohesive, publication-grade Plotly layout template."""
+    """Generates an ultra-clean, institutional Plotly layout template."""
     return {
-        "title": {
-            "text": title or "",
-            "font": {
-                "family": "Plus Jakarta Sans, sans-serif",
-                "size": 16,
-                "color": "#0F172A",
-                "weight": 700,
-            },
-            "x": 0.02,
-            "y": 0.96,
-        },
+        "title": (
+            {
+                "text": title,
+                "font": {
+                    "family": "Inter, -apple-system, sans-serif",
+                    "size": 14,
+                    "color": "#0F172A",
+                    "weight": 700,
+                },
+                "x": 0.01,
+                "y": 0.96,
+            }
+            if title
+            else None
+        ),
         "height": height,
         "paper_bgcolor": "#FFFFFF",
         "plot_bgcolor": "#FFFFFF",
-        "font": {"family": "Plus Jakarta Sans, sans-serif", "color": "#334155", "size": 12},
-        "margin": {"l": 40, "r": 30, "t": 50, "b": 40},
+        "font": {
+            "family": "Inter, -apple-system, sans-serif",
+            "color": "#475569",
+            "size": 11,
+        },
+        "margin": {"l": 45, "r": 25, "t": 35 if title else 20, "b": 35},
         "legend": (
             {
                 "orientation": "h",
@@ -87,7 +194,7 @@ def get_plotly_layout(
                 "y": -0.22,
                 "xanchor": "center",
                 "x": 0.5,
-                "font": {"size": 11},
+                "font": {"size": 11, "color": "#475569"},
             }
             if show_legend
             else {"visible": False}
@@ -95,22 +202,25 @@ def get_plotly_layout(
         "xaxis": {
             "showgrid": True,
             "gridcolor": "#F1F5F9",
+            "gridwidth": 1,
             "zeroline": False,
             "linecolor": "#E2E8F0",
-            "tickfont": {"color": "#64748B", "size": 11},
+            "tickfont": {"color": "#64748B", "size": 10},
         },
         "yaxis": {
             "showgrid": True,
             "gridcolor": "#F1F5F9",
+            "gridwidth": 1,
             "zeroline": False,
             "linecolor": "#E2E8F0",
-            "tickfont": {"color": "#64748B", "size": 11},
+            "tickfont": {"color": "#64748B", "size": 10},
         },
         "hoverlabel": {
             "bgcolor": "#0F172A",
             "font_size": 12,
-            "font_family": "Plus Jakarta Sans, sans-serif",
+            "font_family": "Inter, -apple-system, sans-serif",
             "font_color": "#FFFFFF",
+            "bordercolor": "#1E293B",
         },
     }
 
@@ -151,13 +261,12 @@ def load_customer_master_data() -> pd.DataFrame:
     # Fallback to scored CSV
     csv_path = Path("data/processed/scored_customers.csv")
     if csv_path.exists():
-        return pd.read_csv(csv_path)
+        return read_csv_robust(csv_path)
 
     # Fallback to customer master CSV
     master_csv = Path(settings.paths.customer_master_file)
     if master_csv.exists():
-        df = pd.read_csv(master_csv)
-        # Compute default predictions if table was not yet scored
+        df = read_csv_robust(master_csv)
         df["churn_probability"] = 0.5
         df["churn_prediction"] = df["churned"]
         df["risk_band"] = "Medium"
@@ -220,7 +329,7 @@ def request_prediction_api(customer_dict: dict[str, Any]) -> dict[str, Any]:
     except Exception:
         pass
 
-    # Graceful Local Fallback: use local joblib model and SHAP engine directly
+    # Graceful Local Fallback
     res = explain_customer_prediction(customer_dict)
     tau = load_optimal_threshold()
     res["churn_prediction"] = int(res["churn_probability"] >= tau)
@@ -228,45 +337,41 @@ def request_prediction_api(customer_dict: dict[str, Any]) -> dict[str, Any]:
     return res
 
 
-def render_metric_card(
-    title: str,
-    value: str,
-    delta: str | None = None,
-    delta_type: str = "neutral",
-) -> str:
-    """Renders HTML string for a styled metric card."""
-    delta_html = ""
-    if delta:
-        delta_html = f'<div class="metric-delta {delta_type}">{delta}</div>'
-
-    return f"""
-    <div class="metric-card">
-        <div class="metric-label">{title}</div>
-        <div class="metric-value">{value}</div>
-        {delta_html}
-    </div>
-    """
-
-
 def render_sidebar_status() -> None:
-    """Renders persistent status and system information in Streamlit sidebar."""
+    """Renders sleek enterprise telemetry metadata in Streamlit sidebar."""
     with st.sidebar:
-        st.markdown("### 🛡️ ChurnGuard System")
         is_live = check_api_health()
-        if is_live:
-            st.markdown(
-                '<div style="background:#064E3B;color:#6EE7B7;padding:6px 12px;border-radius:8px;font-size:0.8rem;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:6px;">'
-                '<span style="height:8px;width:8px;background:#10B981;border-radius:50%;display:inline-block;"></span>'
-                "FastAPI Backend: CONNECTED (Port 8000)</div>",
-                unsafe_allow_html=True,
-            )
-        else:
-            st.markdown(
-                '<div style="background:#1E293B;color:#94A3B8;padding:6px 12px;border-radius:8px;font-size:0.8rem;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:6px;">'
-                '<span style="height:8px;width:8px;background:#F59E0B;border-radius:50%;display:inline-block;"></span>'
-                "Engine: Direct In-Memory Mode</div>",
-                unsafe_allow_html=True,
-            )
 
-        st.markdown("---")
-        st.caption("v1.0.0 | Production Portfolio Standard")
+        status_tag = (
+            '<div class="telemetry-pill live"><span class="telemetry-dot"></span> API CONNECTED</div>'
+            if is_live
+            else '<div class="telemetry-pill" style="background:#1E293B;color:#94A3B8;">● LOCAL MODE</div>'
+        )
+
+        st.markdown(
+            f"""
+            <div class="sidebar-telemetry">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                    <span style="font-size:0.75rem; font-weight:700; color:#F1F5F9; letter-spacing:0.04em;">SYSTEM TELEMETRY</span>
+                    {status_tag}
+                </div>
+                <div class="telemetry-row">
+                    <span>Host API</span>
+                    <span class="telemetry-val">Port 8000</span>
+                </div>
+                <div class="telemetry-row">
+                    <span>Database</span>
+                    <span class="telemetry-val">SQLite (7,941)</span>
+                </div>
+                <div class="telemetry-row">
+                    <span>Threshold</span>
+                    <span class="telemetry-val">τ = 0.900</span>
+                </div>
+                <div class="telemetry-row">
+                    <span>Engine</span>
+                    <span class="telemetry-val">RF + TreeSHAP</span>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )

@@ -1,225 +1,328 @@
 /* ==========================================================================
-   ChurnGuard Design System & Custom Styles
-   Theme: Premium Light SaaS (#F7F8FC Canvas, #0E1726 Dark Navy Sidebar)
-   Palette: Indigo (#4F46E5), Teal (#14B8A6), Emerald (#10B981), Amber (#F59E0B), Coral (#EF4444)
+   ChurnGuard Enterprise Design System
+   Theme: High-End B2B Revenue Intelligence (Linear / Stripe Sigma Aesthetic)
+   Palette: Obsidian Sidebar (#090D16), Slate Canvas (#F8FAFC), Crisp Surface (#FFFFFF)
+   Accents: Sapphire (#2563EB), Emerald (#059669), Amber (#D97706), Rose (#E11D48)
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap');
 
-/* Global Typography & Canvas */
+/* Global Reset & Typography */
 html, body, [class*="css"], .stApp {
     font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
-    background-color: #F7F8FC !important;
-    color: #1E293B;
+    background-color: #F8FAFC !important;
+    color: #0F172A;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-/* Sidebar: Dark Navy Luxury Theme */
+/* Remove default Streamlit top padding and decorations */
+.main .block-container {
+    padding-top: 1.75rem !important;
+    padding-bottom: 3.5rem !important;
+    max-width: 1400px !important;
+}
+
+/* Sidebar: Deep Obsidian Navy High-End Styling */
 [data-testid="stSidebar"] {
-    background-color: #0E1726 !important;
-    border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background-color: #090D16 !important;
+    border-right: 1px solid #1E293B !important;
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.25) !important;
 }
 
 [data-testid="stSidebar"] * {
-    color: #E2E8F0 !important;
+    color: #CBD5E1 !important;
 }
 
-[data-testid="stSidebar"] .stSelectbox label,
-[data-testid="stSidebar"] .stMarkdown h1,
-[data-testid="stSidebar"] .stMarkdown h2,
-[data-testid="stSidebar"] .stMarkdown h3 {
-    color: #FFFFFF !important;
+[data-testid="stSidebar"] hr {
+    border-color: #1E293B !important;
+    margin: 1.25rem 0 !important;
+}
+
+/* Navigation Group Headers in Sidebar */
+[data-testid="stSidebarNavSeparator"] {
+    display: none !important;
+}
+
+[data-testid="stSidebarNav"] div[role="heading"] {
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 0.68rem !important;
     font-weight: 700 !important;
+    letter-spacing: 0.12em !important;
+    color: #64748B !important;
+    text-transform: uppercase !important;
+    padding: 12px 14px 4px 14px !important;
 }
 
 /* Navigation Links in Sidebar */
 [data-testid="stSidebarNav"] a {
-    border-radius: 10px !important;
-    margin: 4px 8px !important;
+    border-radius: 8px !important;
+    margin: 2px 8px !important;
     padding: 8px 12px !important;
-    transition: all 0.2s ease-in-out !important;
+    font-size: 0.88rem !important;
+    font-weight: 500 !important;
+    color: #94A3B8 !important;
+    transition: all 0.15s ease-in-out !important;
 }
 
 [data-testid="stSidebarNav"] a:hover {
-    background-color: rgba(79, 70, 229, 0.2) !important;
-    color: #FFFFFF !important;
+    background-color: #131C2E !important;
+    color: #F8FAFC !important;
 }
 
 [data-testid="stSidebarNav"] a[aria-selected="true"] {
-    background: linear-gradient(90deg, #4F46E5 0%, #6366F1 100%) !important;
+    background-color: #17233A !important;
     color: #FFFFFF !important;
     font-weight: 600 !important;
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35) !important;
+    border-left: 3px solid #3B82F6 !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
 }
 
-/* Hero Gradient Banner */
-.hero-banner {
-    background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #312E81 100%);
-    border-radius: 20px;
-    padding: 2.25rem 2.5rem;
-    color: #FFFFFF !important;
-    margin-bottom: 2rem;
-    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.15), 0 8px 10px -6px rgba(15, 23, 42, 0.1);
-    position: relative;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+/* Sidebar Telemetry Box */
+.sidebar-telemetry {
+    background: #0E1626;
+    border: 1px solid #1E293B;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-top: 1rem;
 }
 
-.hero-banner h1 {
-    color: #FFFFFF !important;
-    font-size: 2.4rem !important;
-    font-weight: 800 !important;
-    letter-spacing: -0.025em;
-    margin-bottom: 0.5rem !important;
+.telemetry-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    padding: 4px 0;
+    color: #94A3B8;
 }
 
-.hero-banner p.tagline {
-    color: #CBD5E1 !important;
-    font-size: 1.15rem !important;
-    font-weight: 500;
-    max-width: 650px;
-    line-height: 1.6;
-    margin: 0 !important;
-}
-
-.hero-badge {
-    display: inline-block;
-    background: rgba(79, 70, 229, 0.35);
-    border: 1px solid rgba(129, 140, 248, 0.4);
-    padding: 0.35rem 0.85rem;
-    border-radius: 9999px;
-    font-size: 0.8rem;
+.telemetry-val {
+    font-family: 'JetBrains Mono', monospace;
     font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: #C7D2FE !important;
-    margin-bottom: 1rem;
+    color: #F1F5F9;
 }
 
-/* Metric Cards */
+.telemetry-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 8px;
+    border-radius: 9999px;
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+.telemetry-pill.live {
+    background: rgba(5, 150, 105, 0.2);
+    color: #34D399;
+    border: 1px solid rgba(5, 150, 105, 0.4);
+}
+
+.telemetry-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #10B981;
+    box-shadow: 0 0 8px #10B981;
+}
+
+/* Executive Command Bar (Header) */
+.command-bar {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.command-bar-title-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.command-bar-breadcrumb {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #64748B;
+    text-transform: uppercase;
+}
+
+.command-bar-title {
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: #0F172A;
+    letter-spacing: -0.025em;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.command-bar-subtitle {
+    font-size: 0.88rem;
+    color: #475569;
+    margin: 0;
+    font-weight: 500;
+}
+
+.command-bar-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.badge-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: #F1F5F9;
+    color: #334155;
+    border: 1px solid #E2E8F0;
+}
+
+.badge-meta.active {
+    background: #EFF6FF;
+    color: #1D4ED8;
+    border: 1px solid #DBEAFE;
+}
+
+/* Executive Metric Cards */
 .metric-card {
     background: #FFFFFF;
     border: 1px solid #E2E8F0;
-    border-radius: 16px;
-    padding: 1.4rem;
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 12px;
+    padding: 1.2rem 1.35rem;
+    box-shadow: 0 1px 3px 0 rgba(16, 24, 40, 0.03), 0 1px 2px -1px rgba(16, 24, 40, 0.02);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .metric-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
     border-color: #CBD5E1;
+    box-shadow: 0 4px 6px -1px rgba(16, 24, 40, 0.06), 0 2px 4px -2px rgba(16, 24, 40, 0.03);
+}
+
+.metric-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
 }
 
 .metric-label {
-    font-size: 0.85rem;
-    font-weight: 600;
+    font-size: 0.72rem;
+    font-weight: 700;
     color: #64748B;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.4rem;
+    letter-spacing: 0.06em;
+}
+
+.metric-tag {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: #F1F5F9;
+    color: #475569;
 }
 
 .metric-value {
-    font-size: 1.95rem;
+    font-size: 1.85rem;
     font-weight: 800;
     color: #0F172A;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
+    font-variant-numeric: tabular-nums;
     line-height: 1.1;
-}
-
-.metric-delta {
-    font-size: 0.82rem;
-    font-weight: 600;
-    margin-top: 0.45rem;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.metric-delta.positive {
-    color: #10B981;
-}
-
-.metric-delta.negative {
-    color: #EF4444;
-}
-
-.metric-delta.neutral {
-    color: #64748B;
-}
-
-/* Section Card */
-.section-card {
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 16px;
-    padding: 1.75rem;
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
-    margin-bottom: 1.5rem;
-}
-
-.section-header {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #0F172A;
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.01em;
-}
-
-.section-subtitle {
-    font-size: 0.9rem;
-    color: #64748B;
-    margin-bottom: 1.25rem;
-}
-
-/* Step Cards for "How It Works" */
-.step-card {
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 14px;
-    padding: 1.4rem;
-    height: 100%;
-    position: relative;
-}
-
-.step-number {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    background: #EEF2FF;
-    color: #4F46E5;
-    font-weight: 800;
-    border-radius: 8px;
-    margin-bottom: 0.75rem;
-    font-size: 0.9rem;
-}
-
-.step-title {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: #0F172A;
     margin-bottom: 0.4rem;
 }
 
-.step-desc {
-    font-size: 0.88rem;
+.metric-footer {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
     color: #64748B;
-    line-height: 1.5;
+    font-weight: 500;
+}
+
+.metric-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font-weight: 600;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+}
+
+.metric-pill.positive {
+    background: #ECFDF5;
+    color: #047857;
+}
+
+.metric-pill.negative {
+    background: #FEF2F2;
+    color: #B91C1C;
+}
+
+.metric-pill.neutral {
+    background: #F1F5F9;
+    color: #475569;
+}
+
+/* Surface Section Cards */
+.section-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 1.4rem 1.6rem;
+    box-shadow: 0 1px 3px 0 rgba(16, 24, 40, 0.03);
+    margin-bottom: 1.25rem;
+}
+
+.section-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.4rem;
+}
+
+.section-header {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #0F172A;
+    letter-spacing: -0.015em;
+}
+
+.section-subtitle {
+    font-size: 0.84rem;
+    color: #64748B;
+    margin-bottom: 1rem;
+    line-height: 1.4;
 }
 
 /* Risk Badges */
 .badge-risk {
-    display: inline-block;
-    padding: 0.35rem 0.85rem;
-    border-radius: 9999px;
-    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 9px;
+    border-radius: 6px;
+    font-size: 0.75rem;
     font-weight: 700;
-    text-align: center;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
 }
 
 .badge-low {
@@ -235,64 +338,116 @@ html, body, [class*="css"], .stApp {
 }
 
 .badge-high {
-    background-color: #FEF2F2;
-    color: #991B1B;
-    border: 1px solid #FECACA;
+    background-color: #FFF1F2;
+    color: #9F1239;
+    border: 1px solid #FECDD3;
 }
 
 .badge-critical {
-    background-color: #7F1D1D;
-    color: #FEF2F2;
-    border: 1px solid #991B1B;
-    box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+    background-color: #FEF2F2;
+    color: #991B1B;
+    border: 1px solid #FCA5A5;
 }
 
-/* Strategy Playbook Box */
-.playbook-box {
+/* Prescriptive Playbook Box */
+.playbook-card {
     background: #F8FAFC;
-    border-left: 4px solid #4F46E5;
-    border-radius: 0 12px 12px 0;
-    padding: 1.2rem 1.4rem;
-    margin-top: 1rem;
+    border: 1px solid #E2E8F0;
+    border-left: 4px solid #2563EB;
+    border-radius: 8px;
+    padding: 1.1rem 1.25rem;
+    margin-top: 0.75rem;
 }
 
-.playbook-title {
-    font-size: 0.85rem;
+.playbook-header {
+    font-size: 0.75rem;
     font-weight: 700;
-    color: #4F46E5;
+    color: #2563EB;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
     margin-bottom: 0.35rem;
 }
 
-.playbook-text {
-    font-size: 0.95rem;
+.playbook-body {
+    font-size: 0.9rem;
     font-weight: 600;
     color: #1E293B;
     line-height: 1.5;
     margin: 0;
 }
 
-/* Buttons */
+/* Form Controls & Buttons Override */
 .stButton > button {
-    background: linear-gradient(135deg, #4F46E5 0%, #4338CA 100%) !important;
+    background: #2563EB !important;
     color: #FFFFFF !important;
     font-weight: 600 !important;
-    border-radius: 10px !important;
-    border: none !important;
-    padding: 0.55rem 1.4rem !important;
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25) !important;
-    transition: all 0.2s ease !important;
+    font-size: 0.88rem !important;
+    border-radius: 8px !important;
+    border: 1px solid #1D4ED8 !important;
+    padding: 0.5rem 1.25rem !important;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05) !important;
+    transition: background 0.15s ease, transform 0.1s ease !important;
 }
 
 .stButton > button:hover {
-    transform: translateY(-1px) !important;
-    box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35) !important;
+    background: #1D4ED8 !important;
+    border-color: #1E40AF !important;
+}
+
+.stButton > button:active {
+    transform: scale(0.99) !important;
 }
 
 .stDownloadButton > button {
-    border-radius: 10px !important;
+    background: #FFFFFF !important;
+    color: #0F172A !important;
     font-weight: 600 !important;
+    font-size: 0.88rem !important;
+    border-radius: 8px !important;
+    border: 1px solid #CBD5E1 !important;
+    padding: 0.5rem 1.25rem !important;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04) !important;
+    transition: all 0.15s ease !important;
+}
+
+.stDownloadButton > button:hover {
+    background: #F8FAFC !important;
+    border-color: #94A3B8 !important;
+}
+
+/* Tabs Override */
+[data-baseweb="tab-list"] {
+    gap: 4px !important;
+    border-bottom: 1px solid #E2E8F0 !important;
+    margin-bottom: 1.25rem !important;
+}
+
+[data-baseweb="tab"] {
+    padding: 8px 16px !important;
+    font-weight: 600 !important;
+    font-size: 0.88rem !important;
+    color: #64748B !important;
+    border-radius: 6px 6px 0 0 !important;
+}
+
+[data-baseweb="tab"][aria-selected="true"] {
+    color: #2563EB !important;
+    border-bottom: 2px solid #2563EB !important;
+    background: transparent !important;
+}
+
+/* Sliders Override */
+div[data-testid="stSlider"] label {
+    font-weight: 600 !important;
+    font-size: 0.82rem !important;
+    color: #334155 !important;
+}
+
+/* Dataframe clean styling */
+[data-testid="stDataFrame"] {
+    border: 1px solid #E2E8F0 !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
 }
 
 /* Streamlit Header / Clean up */

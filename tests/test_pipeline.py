@@ -72,3 +72,19 @@ def test_sqlite_persistence() -> None:
         ), "Counts between customers and predictions mismatch."
     finally:
         conn.close()
+
+
+def test_score_customers_missing_columns_auto_imputed() -> None:
+    """Verifies score_customers handles raw batches missing engineered features."""
+    raw_batch = pd.DataFrame(
+        [
+            {"CustomerID": 90001, "frequency": 5, "monetary": 500.0},
+            {"CustomerID": 90002, "frequency": 1, "monetary": 30.0},
+        ]
+    )
+    scored = score_customers(raw_batch)
+    assert len(scored) == 2
+    assert "churn_probability" in scored.columns
+    assert "risk_band" in scored.columns
+    assert "revenue_at_risk" in scored.columns
+    assert (scored["churn_probability"] >= 0.0).all()

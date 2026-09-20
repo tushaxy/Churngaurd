@@ -148,3 +148,16 @@ def test_total_spend_calculated(sample_raw_data: pd.DataFrame) -> None:
     row = purchases[purchases["Invoice"] == "536365"].iloc[0]
     expected_spend = round(row["Quantity"] * row["Price"], 2)
     assert row["TotalSpend"] == expected_spend
+
+
+def test_read_csv_robust_with_byte_0x96() -> None:
+    """Verifies read_csv_robust gracefully decodes CP1252 byte 0x96 without raising UnicodeDecodeError."""
+    from src.churn.utils import read_csv_robust
+
+    # Byte 0x96 is invalid in utf-8, but valid in cp1252 (en-dash '–')
+    raw_bytes = b"CustomerID,segment,monetary\n10001,Champions \x96 VIP,1250.50\n"
+    df = read_csv_robust(raw_bytes)
+    assert len(df) == 1
+    assert df.iloc[0]["CustomerID"] == 10001
+    assert "Champions" in df.iloc[0]["segment"]
+    assert df.iloc[0]["monetary"] == 1250.50

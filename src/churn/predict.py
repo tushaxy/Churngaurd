@@ -74,12 +74,37 @@ def score_customers(
 
     scored = df.copy()
 
-    # Ensure required feature columns exist
-    missing_cols = [c for c in NUMERICAL_FEATURES + CATEGORICAL_FEATURES if c not in scored.columns]
-    if missing_cols:
-        raise ValueError(f"Missing required feature columns for scoring: {missing_cols}")
+    # Smartly impute / calculate missing columns if absent from uploaded batch
+    if "frequency" not in scored.columns:
+        scored["frequency"] = 1
+    if "monetary" not in scored.columns:
+        scored["monetary"] = 100.0
+    if "avg_order_value" not in scored.columns:
+        scored["avg_order_value"] = np.round(
+            scored["monetary"] / np.maximum(scored["frequency"], 1), 2
+        )
+    if "tenure_days" not in scored.columns:
+        scored["tenure_days"] = 180
+    if "orders_per_month" not in scored.columns:
+        scored["orders_per_month"] = np.round(
+            scored["frequency"] / np.maximum(scored["tenure_days"] / 30.4, 1.0), 3
+        )
+    if "return_rate" not in scored.columns:
+        scored["return_rate"] = 0.0
+    if "rfm_score" not in scored.columns:
+        scored["rfm_score"] = 333
+    if "segment" not in scored.columns:
+        scored["segment"] = "Core Retail"
+    if "kmeans_cluster" not in scored.columns:
+        scored["kmeans_cluster"] = "Core Retail"
 
-    feature_matrix = scored[NUMERICAL_FEATURES + CATEGORICAL_FEATURES]
+    feature_matrix = scored[NUMERICAL_FEATURES + CATEGORICAL_FEATURES].copy()
+    # Fill any null values
+    for col in NUMERICAL_FEATURES:
+        feature_matrix[col] = feature_matrix[col].fillna(0.0)
+    for col in CATEGORICAL_FEATURES:
+        feature_matrix[col] = feature_matrix[col].fillna("Unknown")
+
     probs = model.predict_proba(feature_matrix)[:, 1]
 
     scored["churn_probability"] = np.round(probs, 4)
