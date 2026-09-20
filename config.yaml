@@ -1,0 +1,119 @@
+# ChurnGuard — Central Configuration (Single Source of Truth)
+
+project:
+  name: "ChurnGuard"
+  version: "1.0.0"
+  description: "Customer Segmentation & Churn Prediction System"
+  seed: 42
+
+paths:
+  raw_data_dir: "data/raw"
+  processed_data_dir: "data/processed"
+  exports_data_dir: "data/exports"
+  models_dir: "models"
+  powerbi_exports_dir: "powerbi/exports"
+  database_url: "sqlite:///data/churnguard.db"
+  sqlite_path: "data/churnguard.db"
+  raw_transactions_file: "data/raw/online_retail_transactions.csv"
+  processed_transactions_file: "data/processed/cleaned_transactions.parquet"
+  processed_transactions_sample: "data/processed/cleaned_transactions_sample.csv"
+  customer_master_file: "data/processed/customer_master.csv"
+  customer_master_parquet: "data/processed/customer_master.parquet"
+  model_file: "models/model.pkl"
+  explainer_file: "models/shap_explainer.pkl"
+  metrics_file: "models/metrics.json"
+  threshold_file: "models/threshold.json"
+
+business_targets:
+  churn_window_days: 90
+  target_revenue_at_risk_ratio: 0.07  # ~7% of total revenue
+  revenue_at_risk_tolerance: 0.015     # within +/- 1.5%
+  target_pareto_revenue_share: 0.65    # top ~20% customers driving ~65% revenue
+  pareto_customer_percentile: 0.20
+
+synthetic_data:
+  n_customers: 8000
+  n_transactions: 250000
+  date_range_months: 24
+  pareto_alpha: 1.18                   # Heavy-tailed spend distribution
+  base_churn_rate: 0.26
+  cancellation_rate: 0.055
+  random_state: 42
+
+preprocessing:
+  iqr_factor: 3.0                      # Mild outlier cutoff threshold for quantity/price
+  min_monetary: 0.01
+
+rfm:
+  quintile_bins: 5
+  kmeans_k_min: 3
+  kmeans_k_max: 7
+  optimal_k: 4
+  segment_names:
+    - "Champions"
+    - "Loyal Customers"
+    - "Potential Loyalist"
+    - "New Customers"
+    - "Promising"
+    - "Need Attention"
+    - "At Risk"
+    - "Can't Lose Them"
+    - "Hibernating"
+    - "Lost"
+
+model:
+  target_column: "churned"
+  features:
+    - "recency"
+    - "frequency"
+    - "monetary"
+    - "avg_order_value"
+    - "tenure_days"
+    - "orders_per_month"
+    - "return_rate"
+    - "rfm_score"
+    - "segment"
+    - "kmeans_cluster"
+  numerical_features:
+    - "recency"
+    - "frequency"
+    - "monetary"
+    - "avg_order_value"
+    - "tenure_days"
+    - "orders_per_month"
+    - "return_rate"
+    - "rfm_score"
+  categorical_features:
+    - "segment"
+    - "kmeans_cluster"
+  test_size: 0.20
+  cv_folds: 5
+  random_state: 42
+  imbalance_method: "balanced"         # 'balanced' or 'smote'
+  tuning:
+    n_iter: 40
+    scoring: "average_precision"
+    param_distributions:
+      n_estimators: [100, 150, 200, 250]
+      max_depth: [6, 8, 10, 12, null]
+      min_samples_split: [2, 5, 10]
+      min_samples_leaf: [1, 2, 4]
+      max_features: ["sqrt", "log2", 0.8]
+
+palette:
+  primary: "#4F46E5"        # Indigo
+  secondary: "#14B8A6"      # Teal
+  success: "#10B981"        # Emerald
+  warning: "#F59E0B"        # Amber
+  danger: "#EF4444"         # Coral
+  background: "#F7F8FC"     # Light Off-White Canvas
+  sidebar: "#0E1726"        # Dark Navy
+  card_bg: "#FFFFFF"
+  border: "#E2E8F0"
+  text_primary: "#1E293B"
+  text_secondary: "#64748B"
+  risk_colors:
+    Low: "#10B981"
+    Medium: "#F59E0B"
+    High: "#EF4444"
+    Critical: "#991B1B"
