@@ -1,0 +1,875 @@
+{
+  "optimal_threshold": 0.9,
+  "chosen_metrics": {
+    "threshold": 0.9,
+    "precision": 0.913,
+    "recall": 0.8171,
+    "f1": 0.8624,
+    "revenue_at_risk": 50996.37,
+    "revenue_at_risk_ratio": 0.0694,
+    "revenue_at_risk_pct": 6.94,
+    "flagged_customers": 230
+  },
+  "tradeoff_curve": [
+    {
+      "threshold": 0.1,
+      "precision": 0.8107,
+      "recall": 1.0,
+      "f1": 0.8955,
+      "revenue_at_risk": 72806.71,
+      "revenue_at_risk_ratio": 0.0991,
+      "revenue_at_risk_pct": 9.91,
+      "flagged_customers": 317
+    },
+    {
+      "threshold": 0.11,
+      "precision": 0.8211,
+      "recall": 1.0,
+      "f1": 0.9018,
+      "revenue_at_risk": 72795.16,
+      "revenue_at_risk_ratio": 0.0991,
+      "revenue_at_risk_pct": 9.91,
+      "flagged_customers": 313
+    },
+    {
+      "threshold": 0.12,
+      "precision": 0.8264,
+      "recall": 1.0,
+      "f1": 0.9049,
+      "revenue_at_risk": 72780.66,
+      "revenue_at_risk_ratio": 0.0991,
+      "revenue_at_risk_pct": 9.91,
+      "flagged_customers": 311
+    },
+    {
+      "threshold": 0.13,
+      "precision": 0.8264,
+      "recall": 1.0,
+      "f1": 0.9049,
+      "revenue_at_risk": 72780.66,
+      "revenue_at_risk_ratio": 0.0991,
+      "revenue_at_risk_pct": 9.91,
+      "flagged_customers": 311
+    },
+    {
+      "threshold": 0.14,
+      "precision": 0.8264,
+      "recall": 1.0,
+      "f1": 0.9049,
+      "revenue_at_risk": 72780.66,
+      "revenue_at_risk_ratio": 0.0991,
+      "revenue_at_risk_pct": 9.91,
+      "flagged_customers": 311
+    },
+    {
+      "threshold": 0.15,
+      "precision": 0.8285,
+      "recall": 0.9961,
+      "f1": 0.9046,
+      "revenue_at_risk": 72130.39,
+      "revenue_at_risk_ratio": 0.0982,
+      "revenue_at_risk_pct": 9.82,
+      "flagged_customers": 309
+    },
+    {
+      "threshold": 0.16,
+      "precision": 0.8285,
+      "recall": 0.9961,
+      "f1": 0.9046,
+      "revenue_at_risk": 72130.39,
+      "revenue_at_risk_ratio": 0.0982,
+      "revenue_at_risk_pct": 9.82,
+      "flagged_customers": 309
+    },
+    {
+      "threshold": 0.17,
+      "precision": 0.8285,
+      "recall": 0.9961,
+      "f1": 0.9046,
+      "revenue_at_risk": 72130.39,
+      "revenue_at_risk_ratio": 0.0982,
+      "revenue_at_risk_pct": 9.82,
+      "flagged_customers": 309
+    },
+    {
+      "threshold": 0.18,
+      "precision": 0.8285,
+      "recall": 0.9961,
+      "f1": 0.9046,
+      "revenue_at_risk": 72130.39,
+      "revenue_at_risk_ratio": 0.0982,
+      "revenue_at_risk_pct": 9.82,
+      "flagged_customers": 309
+    },
+    {
+      "threshold": 0.19,
+      "precision": 0.8285,
+      "recall": 0.9961,
+      "f1": 0.9046,
+      "revenue_at_risk": 72130.39,
+      "revenue_at_risk_ratio": 0.0982,
+      "revenue_at_risk_pct": 9.82,
+      "flagged_customers": 309
+    },
+    {
+      "threshold": 0.2,
+      "precision": 0.8285,
+      "recall": 0.9961,
+      "f1": 0.9046,
+      "revenue_at_risk": 72130.39,
+      "revenue_at_risk_ratio": 0.0982,
+      "revenue_at_risk_pct": 9.82,
+      "flagged_customers": 309
+    },
+    {
+      "threshold": 0.21,
+      "precision": 0.8306,
+      "recall": 0.9922,
+      "f1": 0.9043,
+      "revenue_at_risk": 71909.46,
+      "revenue_at_risk_ratio": 0.0979,
+      "revenue_at_risk_pct": 9.79,
+      "flagged_customers": 307
+    },
+    {
+      "threshold": 0.22,
+      "precision": 0.8306,
+      "recall": 0.9922,
+      "f1": 0.9043,
+      "revenue_at_risk": 71909.46,
+      "revenue_at_risk_ratio": 0.0979,
+      "revenue_at_risk_pct": 9.79,
+      "flagged_customers": 307
+    },
+    {
+      "threshold": 0.23,
+      "precision": 0.8301,
+      "recall": 0.9883,
+      "f1": 0.9023,
+      "revenue_at_risk": 71779.57,
+      "revenue_at_risk_ratio": 0.0977,
+      "revenue_at_risk_pct": 9.77,
+      "flagged_customers": 306
+    },
+    {
+      "threshold": 0.24,
+      "precision": 0.8301,
+      "recall": 0.9883,
+      "f1": 0.9023,
+      "revenue_at_risk": 71779.57,
+      "revenue_at_risk_ratio": 0.0977,
+      "revenue_at_risk_pct": 9.77,
+      "flagged_customers": 306
+    },
+    {
+      "threshold": 0.25,
+      "precision": 0.8328,
+      "recall": 0.9883,
+      "f1": 0.9039,
+      "revenue_at_risk": 71747.52,
+      "revenue_at_risk_ratio": 0.0977,
+      "revenue_at_risk_pct": 9.77,
+      "flagged_customers": 305
+    },
+    {
+      "threshold": 0.26,
+      "precision": 0.8355,
+      "recall": 0.9883,
+      "f1": 0.9055,
+      "revenue_at_risk": 71549.61,
+      "revenue_at_risk_ratio": 0.0974,
+      "revenue_at_risk_pct": 9.74,
+      "flagged_customers": 304
+    },
+    {
+      "threshold": 0.27,
+      "precision": 0.8383,
+      "recall": 0.9883,
+      "f1": 0.9071,
+      "revenue_at_risk": 71419.38,
+      "revenue_at_risk_ratio": 0.0972,
+      "revenue_at_risk_pct": 9.72,
+      "flagged_customers": 303
+    },
+    {
+      "threshold": 0.28,
+      "precision": 0.8383,
+      "recall": 0.9883,
+      "f1": 0.9071,
+      "revenue_at_risk": 71419.38,
+      "revenue_at_risk_ratio": 0.0972,
+      "revenue_at_risk_pct": 9.72,
+      "flagged_customers": 303
+    },
+    {
+      "threshold": 0.29,
+      "precision": 0.8383,
+      "recall": 0.9883,
+      "f1": 0.9071,
+      "revenue_at_risk": 71419.38,
+      "revenue_at_risk_ratio": 0.0972,
+      "revenue_at_risk_pct": 9.72,
+      "flagged_customers": 303
+    },
+    {
+      "threshold": 0.3,
+      "precision": 0.8383,
+      "recall": 0.9883,
+      "f1": 0.9071,
+      "revenue_at_risk": 71419.38,
+      "revenue_at_risk_ratio": 0.0972,
+      "revenue_at_risk_pct": 9.72,
+      "flagged_customers": 303
+    },
+    {
+      "threshold": 0.31,
+      "precision": 0.8439,
+      "recall": 0.9883,
+      "f1": 0.9104,
+      "revenue_at_risk": 71012.45,
+      "revenue_at_risk_ratio": 0.0967,
+      "revenue_at_risk_pct": 9.67,
+      "flagged_customers": 301
+    },
+    {
+      "threshold": 0.32,
+      "precision": 0.8495,
+      "recall": 0.9883,
+      "f1": 0.9137,
+      "revenue_at_risk": 70834.71,
+      "revenue_at_risk_ratio": 0.0964,
+      "revenue_at_risk_pct": 9.64,
+      "flagged_customers": 299
+    },
+    {
+      "threshold": 0.33,
+      "precision": 0.8495,
+      "recall": 0.9883,
+      "f1": 0.9137,
+      "revenue_at_risk": 70834.71,
+      "revenue_at_risk_ratio": 0.0964,
+      "revenue_at_risk_pct": 9.64,
+      "flagged_customers": 299
+    },
+    {
+      "threshold": 0.34,
+      "precision": 0.8495,
+      "recall": 0.9883,
+      "f1": 0.9137,
+      "revenue_at_risk": 70834.71,
+      "revenue_at_risk_ratio": 0.0964,
+      "revenue_at_risk_pct": 9.64,
+      "flagged_customers": 299
+    },
+    {
+      "threshold": 0.35,
+      "precision": 0.8495,
+      "recall": 0.9883,
+      "f1": 0.9137,
+      "revenue_at_risk": 70834.71,
+      "revenue_at_risk_ratio": 0.0964,
+      "revenue_at_risk_pct": 9.64,
+      "flagged_customers": 299
+    },
+    {
+      "threshold": 0.36,
+      "precision": 0.8495,
+      "recall": 0.9883,
+      "f1": 0.9137,
+      "revenue_at_risk": 70834.71,
+      "revenue_at_risk_ratio": 0.0964,
+      "revenue_at_risk_pct": 9.64,
+      "flagged_customers": 299
+    },
+    {
+      "threshold": 0.37,
+      "precision": 0.8523,
+      "recall": 0.9883,
+      "f1": 0.9153,
+      "revenue_at_risk": 70761.34,
+      "revenue_at_risk_ratio": 0.0963,
+      "revenue_at_risk_pct": 9.63,
+      "flagged_customers": 298
+    },
+    {
+      "threshold": 0.38,
+      "precision": 0.8552,
+      "recall": 0.9883,
+      "f1": 0.917,
+      "revenue_at_risk": 70512.82,
+      "revenue_at_risk_ratio": 0.096,
+      "revenue_at_risk_pct": 9.6,
+      "flagged_customers": 297
+    },
+    {
+      "threshold": 0.39,
+      "precision": 0.8552,
+      "recall": 0.9883,
+      "f1": 0.917,
+      "revenue_at_risk": 70512.82,
+      "revenue_at_risk_ratio": 0.096,
+      "revenue_at_risk_pct": 9.6,
+      "flagged_customers": 297
+    },
+    {
+      "threshold": 0.4,
+      "precision": 0.8581,
+      "recall": 0.9883,
+      "f1": 0.9186,
+      "revenue_at_risk": 70457.98,
+      "revenue_at_risk_ratio": 0.0959,
+      "revenue_at_risk_pct": 9.59,
+      "flagged_customers": 296
+    },
+    {
+      "threshold": 0.41,
+      "precision": 0.8581,
+      "recall": 0.9883,
+      "f1": 0.9186,
+      "revenue_at_risk": 70457.98,
+      "revenue_at_risk_ratio": 0.0959,
+      "revenue_at_risk_pct": 9.59,
+      "flagged_customers": 296
+    },
+    {
+      "threshold": 0.42,
+      "precision": 0.8581,
+      "recall": 0.9883,
+      "f1": 0.9186,
+      "revenue_at_risk": 70457.98,
+      "revenue_at_risk_ratio": 0.0959,
+      "revenue_at_risk_pct": 9.59,
+      "flagged_customers": 296
+    },
+    {
+      "threshold": 0.43,
+      "precision": 0.861,
+      "recall": 0.9883,
+      "f1": 0.9203,
+      "revenue_at_risk": 70402.23,
+      "revenue_at_risk_ratio": 0.0959,
+      "revenue_at_risk_pct": 9.59,
+      "flagged_customers": 295
+    },
+    {
+      "threshold": 0.44,
+      "precision": 0.861,
+      "recall": 0.9883,
+      "f1": 0.9203,
+      "revenue_at_risk": 70402.23,
+      "revenue_at_risk_ratio": 0.0959,
+      "revenue_at_risk_pct": 9.59,
+      "flagged_customers": 295
+    },
+    {
+      "threshold": 0.45,
+      "precision": 0.8635,
+      "recall": 0.9844,
+      "f1": 0.92,
+      "revenue_at_risk": 70107.41,
+      "revenue_at_risk_ratio": 0.0954,
+      "revenue_at_risk_pct": 9.54,
+      "flagged_customers": 293
+    },
+    {
+      "threshold": 0.46,
+      "precision": 0.8664,
+      "recall": 0.9844,
+      "f1": 0.9217,
+      "revenue_at_risk": 70047.59,
+      "revenue_at_risk_ratio": 0.0954,
+      "revenue_at_risk_pct": 9.54,
+      "flagged_customers": 292
+    },
+    {
+      "threshold": 0.47,
+      "precision": 0.8664,
+      "recall": 0.9844,
+      "f1": 0.9217,
+      "revenue_at_risk": 70047.59,
+      "revenue_at_risk_ratio": 0.0954,
+      "revenue_at_risk_pct": 9.54,
+      "flagged_customers": 292
+    },
+    {
+      "threshold": 0.48,
+      "precision": 0.8655,
+      "recall": 0.9767,
+      "f1": 0.9177,
+      "revenue_at_risk": 69638.21,
+      "revenue_at_risk_ratio": 0.0948,
+      "revenue_at_risk_pct": 9.48,
+      "flagged_customers": 290
+    },
+    {
+      "threshold": 0.49,
+      "precision": 0.8655,
+      "recall": 0.9767,
+      "f1": 0.9177,
+      "revenue_at_risk": 69638.21,
+      "revenue_at_risk_ratio": 0.0948,
+      "revenue_at_risk_pct": 9.48,
+      "flagged_customers": 290
+    },
+    {
+      "threshold": 0.5,
+      "precision": 0.8651,
+      "recall": 0.9728,
+      "f1": 0.9158,
+      "revenue_at_risk": 69441.02,
+      "revenue_at_risk_ratio": 0.0945,
+      "revenue_at_risk_pct": 9.45,
+      "flagged_customers": 289
+    },
+    {
+      "threshold": 0.51,
+      "precision": 0.8651,
+      "recall": 0.9728,
+      "f1": 0.9158,
+      "revenue_at_risk": 69441.02,
+      "revenue_at_risk_ratio": 0.0945,
+      "revenue_at_risk_pct": 9.45,
+      "flagged_customers": 289
+    },
+    {
+      "threshold": 0.52,
+      "precision": 0.8646,
+      "recall": 0.9689,
+      "f1": 0.9138,
+      "revenue_at_risk": 69224.8,
+      "revenue_at_risk_ratio": 0.0942,
+      "revenue_at_risk_pct": 9.42,
+      "flagged_customers": 288
+    },
+    {
+      "threshold": 0.53,
+      "precision": 0.8676,
+      "recall": 0.9689,
+      "f1": 0.9154,
+      "revenue_at_risk": 69124.2,
+      "revenue_at_risk_ratio": 0.0941,
+      "revenue_at_risk_pct": 9.41,
+      "flagged_customers": 287
+    },
+    {
+      "threshold": 0.54,
+      "precision": 0.8676,
+      "recall": 0.9689,
+      "f1": 0.9154,
+      "revenue_at_risk": 69124.2,
+      "revenue_at_risk_ratio": 0.0941,
+      "revenue_at_risk_pct": 9.41,
+      "flagged_customers": 287
+    },
+    {
+      "threshold": 0.55,
+      "precision": 0.8676,
+      "recall": 0.9689,
+      "f1": 0.9154,
+      "revenue_at_risk": 69124.2,
+      "revenue_at_risk_ratio": 0.0941,
+      "revenue_at_risk_pct": 9.41,
+      "flagged_customers": 287
+    },
+    {
+      "threshold": 0.56,
+      "precision": 0.8676,
+      "recall": 0.9689,
+      "f1": 0.9154,
+      "revenue_at_risk": 69124.2,
+      "revenue_at_risk_ratio": 0.0941,
+      "revenue_at_risk_pct": 9.41,
+      "flagged_customers": 287
+    },
+    {
+      "threshold": 0.57,
+      "precision": 0.8676,
+      "recall": 0.9689,
+      "f1": 0.9154,
+      "revenue_at_risk": 69124.2,
+      "revenue_at_risk_ratio": 0.0941,
+      "revenue_at_risk_pct": 9.41,
+      "flagged_customers": 287
+    },
+    {
+      "threshold": 0.58,
+      "precision": 0.8676,
+      "recall": 0.9689,
+      "f1": 0.9154,
+      "revenue_at_risk": 69124.2,
+      "revenue_at_risk_ratio": 0.0941,
+      "revenue_at_risk_pct": 9.41,
+      "flagged_customers": 287
+    },
+    {
+      "threshold": 0.59,
+      "precision": 0.8676,
+      "recall": 0.9689,
+      "f1": 0.9154,
+      "revenue_at_risk": 69124.2,
+      "revenue_at_risk_ratio": 0.0941,
+      "revenue_at_risk_pct": 9.41,
+      "flagged_customers": 287
+    },
+    {
+      "threshold": 0.6,
+      "precision": 0.8671,
+      "recall": 0.965,
+      "f1": 0.9134,
+      "revenue_at_risk": 68675.92,
+      "revenue_at_risk_ratio": 0.0935,
+      "revenue_at_risk_pct": 9.35,
+      "flagged_customers": 286
+    },
+    {
+      "threshold": 0.61,
+      "precision": 0.8671,
+      "recall": 0.965,
+      "f1": 0.9134,
+      "revenue_at_risk": 68675.92,
+      "revenue_at_risk_ratio": 0.0935,
+      "revenue_at_risk_pct": 9.35,
+      "flagged_customers": 286
+    },
+    {
+      "threshold": 0.62,
+      "precision": 0.8732,
+      "recall": 0.965,
+      "f1": 0.9168,
+      "revenue_at_risk": 68177.6,
+      "revenue_at_risk_ratio": 0.0928,
+      "revenue_at_risk_pct": 9.28,
+      "flagged_customers": 284
+    },
+    {
+      "threshold": 0.63,
+      "precision": 0.8732,
+      "recall": 0.965,
+      "f1": 0.9168,
+      "revenue_at_risk": 68177.6,
+      "revenue_at_risk_ratio": 0.0928,
+      "revenue_at_risk_pct": 9.28,
+      "flagged_customers": 284
+    },
+    {
+      "threshold": 0.64,
+      "precision": 0.8732,
+      "recall": 0.965,
+      "f1": 0.9168,
+      "revenue_at_risk": 68177.6,
+      "revenue_at_risk_ratio": 0.0928,
+      "revenue_at_risk_pct": 9.28,
+      "flagged_customers": 284
+    },
+    {
+      "threshold": 0.65,
+      "precision": 0.8759,
+      "recall": 0.9611,
+      "f1": 0.9165,
+      "revenue_at_risk": 68033.4,
+      "revenue_at_risk_ratio": 0.0926,
+      "revenue_at_risk_pct": 9.26,
+      "flagged_customers": 282
+    },
+    {
+      "threshold": 0.66,
+      "precision": 0.8759,
+      "recall": 0.9611,
+      "f1": 0.9165,
+      "revenue_at_risk": 68033.4,
+      "revenue_at_risk_ratio": 0.0926,
+      "revenue_at_risk_pct": 9.26,
+      "flagged_customers": 282
+    },
+    {
+      "threshold": 0.67,
+      "precision": 0.8759,
+      "recall": 0.9611,
+      "f1": 0.9165,
+      "revenue_at_risk": 68033.4,
+      "revenue_at_risk_ratio": 0.0926,
+      "revenue_at_risk_pct": 9.26,
+      "flagged_customers": 282
+    },
+    {
+      "threshold": 0.68,
+      "precision": 0.8759,
+      "recall": 0.9611,
+      "f1": 0.9165,
+      "revenue_at_risk": 68033.4,
+      "revenue_at_risk_ratio": 0.0926,
+      "revenue_at_risk_pct": 9.26,
+      "flagged_customers": 282
+    },
+    {
+      "threshold": 0.69,
+      "precision": 0.8754,
+      "recall": 0.9572,
+      "f1": 0.9145,
+      "revenue_at_risk": 67960.03,
+      "revenue_at_risk_ratio": 0.0925,
+      "revenue_at_risk_pct": 9.25,
+      "flagged_customers": 281
+    },
+    {
+      "threshold": 0.7,
+      "precision": 0.875,
+      "recall": 0.9533,
+      "f1": 0.9125,
+      "revenue_at_risk": 67683.18,
+      "revenue_at_risk_ratio": 0.0921,
+      "revenue_at_risk_pct": 9.21,
+      "flagged_customers": 280
+    },
+    {
+      "threshold": 0.71,
+      "precision": 0.8746,
+      "recall": 0.9494,
+      "f1": 0.9104,
+      "revenue_at_risk": 67608.19,
+      "revenue_at_risk_ratio": 0.092,
+      "revenue_at_risk_pct": 9.2,
+      "flagged_customers": 279
+    },
+    {
+      "threshold": 0.72,
+      "precision": 0.8741,
+      "recall": 0.9455,
+      "f1": 0.9084,
+      "revenue_at_risk": 67401.12,
+      "revenue_at_risk_ratio": 0.0918,
+      "revenue_at_risk_pct": 9.18,
+      "flagged_customers": 278
+    },
+    {
+      "threshold": 0.73,
+      "precision": 0.8773,
+      "recall": 0.9455,
+      "f1": 0.9101,
+      "revenue_at_risk": 67344.56,
+      "revenue_at_risk_ratio": 0.0917,
+      "revenue_at_risk_pct": 9.17,
+      "flagged_customers": 277
+    },
+    {
+      "threshold": 0.74,
+      "precision": 0.8804,
+      "recall": 0.9455,
+      "f1": 0.9118,
+      "revenue_at_risk": 67271.5,
+      "revenue_at_risk_ratio": 0.0916,
+      "revenue_at_risk_pct": 9.16,
+      "flagged_customers": 276
+    },
+    {
+      "threshold": 0.75,
+      "precision": 0.88,
+      "recall": 0.9416,
+      "f1": 0.9098,
+      "revenue_at_risk": 67208.2,
+      "revenue_at_risk_ratio": 0.0915,
+      "revenue_at_risk_pct": 9.15,
+      "flagged_customers": 275
+    },
+    {
+      "threshold": 0.76,
+      "precision": 0.8828,
+      "recall": 0.9377,
+      "f1": 0.9094,
+      "revenue_at_risk": 66881.15,
+      "revenue_at_risk_ratio": 0.0911,
+      "revenue_at_risk_pct": 9.11,
+      "flagged_customers": 273
+    },
+    {
+      "threshold": 0.77,
+      "precision": 0.8922,
+      "recall": 0.9339,
+      "f1": 0.9125,
+      "revenue_at_risk": 65947.85,
+      "revenue_at_risk_ratio": 0.0898,
+      "revenue_at_risk_pct": 8.98,
+      "flagged_customers": 269
+    },
+    {
+      "threshold": 0.78,
+      "precision": 0.8955,
+      "recall": 0.9339,
+      "f1": 0.9143,
+      "revenue_at_risk": 65875.02,
+      "revenue_at_risk_ratio": 0.0897,
+      "revenue_at_risk_pct": 8.97,
+      "flagged_customers": 268
+    },
+    {
+      "threshold": 0.79,
+      "precision": 0.8951,
+      "recall": 0.93,
+      "f1": 0.9122,
+      "revenue_at_risk": 65438.8,
+      "revenue_at_risk_ratio": 0.0891,
+      "revenue_at_risk_pct": 8.91,
+      "flagged_customers": 267
+    },
+    {
+      "threshold": 0.8,
+      "precision": 0.8943,
+      "recall": 0.9222,
+      "f1": 0.908,
+      "revenue_at_risk": 65107.53,
+      "revenue_at_risk_ratio": 0.0886,
+      "revenue_at_risk_pct": 8.86,
+      "flagged_customers": 265
+    },
+    {
+      "threshold": 0.81,
+      "precision": 0.8973,
+      "recall": 0.9183,
+      "f1": 0.9077,
+      "revenue_at_risk": 64960.38,
+      "revenue_at_risk_ratio": 0.0884,
+      "revenue_at_risk_pct": 8.84,
+      "flagged_customers": 263
+    },
+    {
+      "threshold": 0.82,
+      "precision": 0.8969,
+      "recall": 0.9144,
+      "f1": 0.9056,
+      "revenue_at_risk": 64696.0,
+      "revenue_at_risk_ratio": 0.0881,
+      "revenue_at_risk_pct": 8.81,
+      "flagged_customers": 262
+    },
+    {
+      "threshold": 0.83,
+      "precision": 0.8962,
+      "recall": 0.9066,
+      "f1": 0.9014,
+      "revenue_at_risk": 64235.42,
+      "revenue_at_risk_ratio": 0.0875,
+      "revenue_at_risk_pct": 8.75,
+      "flagged_customers": 260
+    },
+    {
+      "threshold": 0.84,
+      "precision": 0.8945,
+      "recall": 0.8911,
+      "f1": 0.8928,
+      "revenue_at_risk": 62683.03,
+      "revenue_at_risk_ratio": 0.0853,
+      "revenue_at_risk_pct": 8.53,
+      "flagged_customers": 256
+    },
+    {
+      "threshold": 0.85,
+      "precision": 0.8941,
+      "recall": 0.8872,
+      "f1": 0.8906,
+      "revenue_at_risk": 62218.97,
+      "revenue_at_risk_ratio": 0.0847,
+      "revenue_at_risk_pct": 8.47,
+      "flagged_customers": 255
+    },
+    {
+      "threshold": 0.86,
+      "precision": 0.9076,
+      "recall": 0.8794,
+      "f1": 0.8933,
+      "revenue_at_risk": 57023.25,
+      "revenue_at_risk_ratio": 0.0776,
+      "revenue_at_risk_pct": 7.76,
+      "flagged_customers": 249
+    },
+    {
+      "threshold": 0.87,
+      "precision": 0.9057,
+      "recall": 0.8599,
+      "f1": 0.8822,
+      "revenue_at_risk": 54908.54,
+      "revenue_at_risk_ratio": 0.0748,
+      "revenue_at_risk_pct": 7.48,
+      "flagged_customers": 244
+    },
+    {
+      "threshold": 0.88,
+      "precision": 0.9079,
+      "recall": 0.8444,
+      "f1": 0.875,
+      "revenue_at_risk": 53782.22,
+      "revenue_at_risk_ratio": 0.0732,
+      "revenue_at_risk_pct": 7.32,
+      "flagged_customers": 239
+    },
+    {
+      "threshold": 0.89,
+      "precision": 0.9106,
+      "recall": 0.8327,
+      "f1": 0.8699,
+      "revenue_at_risk": 52000.02,
+      "revenue_at_risk_ratio": 0.0708,
+      "revenue_at_risk_pct": 7.08,
+      "flagged_customers": 235
+    },
+    {
+      "threshold": 0.9,
+      "precision": 0.913,
+      "recall": 0.8171,
+      "f1": 0.8624,
+      "revenue_at_risk": 50996.37,
+      "revenue_at_risk_ratio": 0.0694,
+      "revenue_at_risk_pct": 6.94,
+      "flagged_customers": 230
+    },
+    {
+      "threshold": 0.91,
+      "precision": 0.9111,
+      "recall": 0.7977,
+      "f1": 0.8506,
+      "revenue_at_risk": 47603.34,
+      "revenue_at_risk_ratio": 0.0648,
+      "revenue_at_risk_pct": 6.48,
+      "flagged_customers": 225
+    },
+    {
+      "threshold": 0.92,
+      "precision": 0.9252,
+      "recall": 0.7704,
+      "f1": 0.8408,
+      "revenue_at_risk": 43688.91,
+      "revenue_at_risk_ratio": 0.0595,
+      "revenue_at_risk_pct": 5.95,
+      "flagged_customers": 214
+    },
+    {
+      "threshold": 0.93,
+      "precision": 0.932,
+      "recall": 0.7471,
+      "f1": 0.8294,
+      "revenue_at_risk": 39580.39,
+      "revenue_at_risk_ratio": 0.0539,
+      "revenue_at_risk_pct": 5.39,
+      "flagged_customers": 206
+    },
+    {
+      "threshold": 0.94,
+      "precision": 0.9534,
+      "recall": 0.716,
+      "f1": 0.8178,
+      "revenue_at_risk": 35867.62,
+      "revenue_at_risk_ratio": 0.0488,
+      "revenue_at_risk_pct": 4.88,
+      "flagged_customers": 193
+    },
+    {
+      "threshold": 0.95,
+      "precision": 0.9492,
+      "recall": 0.6537,
+      "f1": 0.7742,
+      "revenue_at_risk": 30271.23,
+      "revenue_at_risk_ratio": 0.0412,
+      "revenue_at_risk_pct": 4.12,
+      "flagged_customers": 177
+    }
+  ]
+}

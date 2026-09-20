@@ -167,8 +167,12 @@ def generate_synthetic_transactions(
     target_spends = np.random.lognormal(mean=5.5, sigma=1.208, size=n_cust)
     target_spends = np.clip(target_spends, 15.0, 45000.0)
 
-    # 3. Churn behavior assignment (~26.5% base churn rate)
-    is_churned = np.random.binomial(1, 0.265, size=n_cust).astype(bool)
+    # 3. Churn behavior assignment: high for low-engagement/spend, low for high-value VIPs
+    # Calibrated so that total revenue at risk is ~7.0%
+    ranks = target_spends.argsort().argsort() / float(n_cust)
+    churn_probs = 0.40 - 0.36 * (ranks**0.38)
+    churn_probs = np.clip(churn_probs, 0.025, 0.48)
+    is_churned = np.random.binomial(1, churn_probs).astype(bool)
 
     # Date range: End date = 2024-12-31, 730 days of history
     end_date = datetime(2024, 12, 31, 23, 59, 59)
