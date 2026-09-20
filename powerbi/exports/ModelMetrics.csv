@@ -1,0 +1,2 @@
+﻿ROC_AUC,PR_AUC,BrierScore,OptimalThreshold,Precision,Recall,F1_Score,RevenueAtRisk_Pct,ImbalanceStrategy
+0.9934,0.9612,0.0229,0.9,0.913,0.8171,0.8624,6.94,smote

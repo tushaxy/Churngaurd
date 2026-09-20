@@ -1,0 +1,53 @@
+{
+  "name": "ChurnGuard Executive SaaS",
+  "dataColors": [
+    "#4F46E5",
+    "#14B8A6",
+    "#10B981",
+    "#F59E0B",
+    "#EF4444",
+    "#8B5CF6",
+    "#3B82F6",
+    "#64748B",
+    "#991B1B",
+    "#0F172A"
+  ],
+  "background": "#F7F8FC",
+  "foreground": "#0F172A",
+  "tableAccent": "#4F46E5",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "title": [
+          {
+            "show": true,
+            "fontColor": { "solid": { "color": "#0F172A" } },
+            "fontSize": 14,
+            "fontFamily": "Segoe UI, wf_segoe-ui_normal, helvetica, arial, sans-serif"
+          }
+        ],
+        "background": [
+          {
+            "show": true,
+            "color": { "solid": { "color": "#FFFFFF" } },
+            "transparency": 0
+          }
+        ],
+        "border": [
+          {
+            "show": true,
+            "color": { "solid": { "color": "#E2E8F0" } },
+            "radius": 12
+          }
+        ],
+        "dropShadow": [
+          {
+            "show": true,
+            "color": { "solid": { "color": "rgba(15, 23, 42, 0.04)" } },
+            "preset": "Custom"
+          }
+        ]
+      }
+    }
+  }
+}

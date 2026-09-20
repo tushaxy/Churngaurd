@@ -1,0 +1,11 @@
+﻿Segment,CustomerCount,TotalRevenue,AvgOrderValue,ChurnRatePct,RevenueAtRisk,RevenueSharePct
+At Risk,1318,793251.74,54.48,17.15,63858.89,22.31
+Can't Lose Them,421,335967.74,58.4,67.7,260492.63,9.45
+Champions,1320,1274468.67,59.55,0.0,321.85,35.85
+Hibernating,690,65277.96,44.19,53.33,46948.62,1.84
+Lost,435,18872.65,36.48,92.64,17476.54,0.53
+Loyal Customers,1705,866565.56,53.12,0.0,126.64,24.37
+Need Attention,312,39722.33,46.29,0.0,114.71,1.12
+New Customers,539,31046.16,39.34,0.0,105.13,0.87
+Potential Loyalist,591,73867.0,45.42,0.0,106.99,2.08
+Promising,610,56372.66,42.67,0.0,277.57,1.59
