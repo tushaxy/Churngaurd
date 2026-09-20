@@ -1,0 +1,305 @@
+/* ==========================================================================
+   ChurnGuard Design System & Custom Styles
+   Theme: Premium Light SaaS (#F7F8FC Canvas, #0E1726 Dark Navy Sidebar)
+   Palette: Indigo (#4F46E5), Teal (#14B8A6), Emerald (#10B981), Amber (#F59E0B), Coral (#EF4444)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+
+/* Global Typography & Canvas */
+html, body, [class*="css"], .stApp {
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    background-color: #F7F8FC !important;
+    color: #1E293B;
+}
+
+/* Sidebar: Dark Navy Luxury Theme */
+[data-testid="stSidebar"] {
+    background-color: #0E1726 !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-testid="stSidebar"] * {
+    color: #E2E8F0 !important;
+}
+
+[data-testid="stSidebar"] .stSelectbox label,
+[data-testid="stSidebar"] .stMarkdown h1,
+[data-testid="stSidebar"] .stMarkdown h2,
+[data-testid="stSidebar"] .stMarkdown h3 {
+    color: #FFFFFF !important;
+    font-weight: 700 !important;
+}
+
+/* Navigation Links in Sidebar */
+[data-testid="stSidebarNav"] a {
+    border-radius: 10px !important;
+    margin: 4px 8px !important;
+    padding: 8px 12px !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+[data-testid="stSidebarNav"] a:hover {
+    background-color: rgba(79, 70, 229, 0.2) !important;
+    color: #FFFFFF !important;
+}
+
+[data-testid="stSidebarNav"] a[aria-selected="true"] {
+    background: linear-gradient(90deg, #4F46E5 0%, #6366F1 100%) !important;
+    color: #FFFFFF !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35) !important;
+}
+
+/* Hero Gradient Banner */
+.hero-banner {
+    background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 50%, #312E81 100%);
+    border-radius: 20px;
+    padding: 2.25rem 2.5rem;
+    color: #FFFFFF !important;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.15), 0 8px 10px -6px rgba(15, 23, 42, 0.1);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hero-banner h1 {
+    color: #FFFFFF !important;
+    font-size: 2.4rem !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.025em;
+    margin-bottom: 0.5rem !important;
+}
+
+.hero-banner p.tagline {
+    color: #CBD5E1 !important;
+    font-size: 1.15rem !important;
+    font-weight: 500;
+    max-width: 650px;
+    line-height: 1.6;
+    margin: 0 !important;
+}
+
+.hero-badge {
+    display: inline-block;
+    background: rgba(79, 70, 229, 0.35);
+    border: 1px solid rgba(129, 140, 248, 0.4);
+    padding: 0.35rem 0.85rem;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #C7D2FE !important;
+    margin-bottom: 1rem;
+}
+
+/* Metric Cards */
+.metric-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
+    padding: 1.4rem;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 100%;
+}
+
+.metric-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+    border-color: #CBD5E1;
+}
+
+.metric-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748B;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.4rem;
+}
+
+.metric-value {
+    font-size: 1.95rem;
+    font-weight: 800;
+    color: #0F172A;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+
+.metric-delta {
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-top: 0.45rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.metric-delta.positive {
+    color: #10B981;
+}
+
+.metric-delta.negative {
+    color: #EF4444;
+}
+
+.metric-delta.neutral {
+    color: #64748B;
+}
+
+/* Section Card */
+.section-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
+    padding: 1.75rem;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+    margin-bottom: 1.5rem;
+}
+
+.section-header {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0F172A;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+}
+
+.section-subtitle {
+    font-size: 0.9rem;
+    color: #64748B;
+    margin-bottom: 1.25rem;
+}
+
+/* Step Cards for "How It Works" */
+.step-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 14px;
+    padding: 1.4rem;
+    height: 100%;
+    position: relative;
+}
+
+.step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: #EEF2FF;
+    color: #4F46E5;
+    font-weight: 800;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.step-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #0F172A;
+    margin-bottom: 0.4rem;
+}
+
+.step-desc {
+    font-size: 0.88rem;
+    color: #64748B;
+    line-height: 1.5;
+}
+
+/* Risk Badges */
+.badge-risk {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 0.02em;
+}
+
+.badge-low {
+    background-color: #ECFDF5;
+    color: #065F46;
+    border: 1px solid #A7F3D0;
+}
+
+.badge-medium {
+    background-color: #FFFBEB;
+    color: #92400E;
+    border: 1px solid #FDE68A;
+}
+
+.badge-high {
+    background-color: #FEF2F2;
+    color: #991B1B;
+    border: 1px solid #FECACA;
+}
+
+.badge-critical {
+    background-color: #7F1D1D;
+    color: #FEF2F2;
+    border: 1px solid #991B1B;
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+}
+
+/* Strategy Playbook Box */
+.playbook-box {
+    background: #F8FAFC;
+    border-left: 4px solid #4F46E5;
+    border-radius: 0 12px 12px 0;
+    padding: 1.2rem 1.4rem;
+    margin-top: 1rem;
+}
+
+.playbook-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #4F46E5;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.35rem;
+}
+
+.playbook-text {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1E293B;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Buttons */
+.stButton > button {
+    background: linear-gradient(135deg, #4F46E5 0%, #4338CA 100%) !important;
+    color: #FFFFFF !important;
+    font-weight: 600 !important;
+    border-radius: 10px !important;
+    border: none !important;
+    padding: 0.55rem 1.4rem !important;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25) !important;
+    transition: all 0.2s ease !important;
+}
+
+.stButton > button:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35) !important;
+}
+
+.stDownloadButton > button {
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+}
+
+/* Streamlit Header / Clean up */
+header[data-testid="stHeader"] {
+    background-color: transparent !important;
+}
+
+footer {
+    display: none !important;
+}
