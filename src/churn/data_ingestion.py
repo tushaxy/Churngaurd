@@ -163,123 +163,98 @@ def generate_synthetic_transactions(
     country_probs = np.array(country_probs) / sum(country_probs)
     customer_countries = np.random.choice(country_names, size=n_cust, p=country_probs)
 
-    # 2. Pareto spend allocation: alpha=1.267 empirically generates ~65% revenue for top 20%
-    alpha = 1.267
-    raw_weights = np.random.pareto(alpha, n_cust) + 1.0
-    spend_weights = raw_weights / raw_weights.sum()
+    # 2. Spend allocation: lognormal with sigma=1.208 calibrates top 20% to ~65% revenue share
+    target_spends = np.random.lognormal(mean=5.5, sigma=1.208, size=n_cust)
+    target_spends = np.clip(target_spends, 15.0, 45000.0)
 
-    # 3. Churn behavior assignment
-    # ~26% of customers are churned (stopped purchasing > 90 days ago)
-    base_churn_rate = settings.synthetic_data.base_churn_rate
-    # Lower spenders have slightly higher probability of churn
-    churn_prob = base_churn_rate + 0.15 * (
-        1.0 - (raw_weights / np.percentile(raw_weights, 90)).clip(0, 1)
-    )
-    churn_prob = np.clip(churn_prob, 0.10, 0.60)
-    is_churned = np.random.binomial(1, churn_prob).astype(bool)
+    # 3. Churn behavior assignment (~26.5% base churn rate)
+    is_churned = np.random.binomial(1, 0.265, size=n_cust).astype(bool)
 
     # Date range: End date = 2024-12-31, 730 days of history
     end_date = datetime(2024, 12, 31, 23, 59, 59)
     total_days = 730
 
-    # For churned customers, their last purchase is between 91 and 400 days before end_date
-    churn_last_purchase_offset = np.random.randint(92, 400, size=n_cust)
-    # For active customers, their last purchase is within 1 to 89 days
-    active_last_purchase_offset = np.random.randint(1, 90, size=n_cust)
+    # Churned customers have last purchase > 90 days ago (92 to 450 days)
+    churn_last_purchase_offset = np.random.randint(92, 450, size=n_cust)
+    # Active customers have last purchase <= 89 days ago (1 to 88 days)
+    active_last_purchase_offset = np.random.randint(1, 89, size=n_cust)
     last_purchase_offset = np.where(
         is_churned, churn_last_purchase_offset, active_last_purchase_offset
     )
 
-    # Customer tenure (days they have been a customer before their last purchase)
+    # Customer tenure (days before last purchase)
     customer_tenure_days = np.random.randint(30, total_days - last_purchase_offset + 1, size=n_cust)
     first_purchase_offset = last_purchase_offset + customer_tenure_days
 
-    # Order count per customer: proportional to spend weight with heavy tail
-    expected_orders = np.maximum(
-        1, np.random.poisson(lam=np.clip(spend_weights * n_trans * 0.56, 2, 280))
-    )
+    # Order count per customer: proportional to spend
+    orders_per_cust = np.maximum(1, np.round((target_spends / 36.0) ** 0.82).astype(int))
+    orders_per_cust = np.clip(orders_per_cust, 1, 95)
 
-    # 4. Generate Invoices
-    logger.info("Synthesizing orders and item baskets across customers...")
+    # 4. Generate Invoices and line items
+    logger.info("Synthesizing orders and item baskets across %d customers...", n_cust)
     records = []
     invoice_counter = 536365
-
-    # Seasonality curve by month (Q4 November/December holiday spike)
-    # Month weights: Jan=0.8, ..., Oct=1.1, Nov=1.7, Dec=1.9
-    month_weights = {
-        1: 0.85,
-        2: 0.80,
-        3: 0.90,
-        4: 0.90,
-        5: 0.95,
-        6: 0.95,
-        7: 0.90,
-        8: 0.95,
-        9: 1.10,
-        10: 1.25,
-        11: 1.75,
-        12: 1.90,
-    }
-
     n_catalog = len(PRODUCT_CATALOG)
 
     for i in range(n_cust):
         c_id = int(customer_ids[i])
         c_country = str(customer_countries[i])
-        n_orders = int(expected_orders[i])
+        n_orders = int(orders_per_cust[i])
         f_offset = int(first_purchase_offset[i])
         l_offset = int(last_purchase_offset[i])
+        cust_target_spend = float(target_spends[i])
 
-        # Generate order timestamps between first and last purchase
+        # Allocate target spend across orders
         if n_orders == 1:
+            order_target_spends = [cust_target_spend]
             order_offsets = [l_offset]
         else:
-            # Distribute orders with increasing gap if churned
-            order_offsets = np.sort(np.random.randint(l_offset, f_offset + 1, size=n_orders))[
-                ::-1
-            ]  # Most recent first
+            proportions = np.random.dirichlet(np.ones(n_orders))
+            order_target_spends = cust_target_spend * proportions
+            # Guarantee that l_offset is the exact latest order
+            intermediate_offsets = np.random.randint(l_offset + 1, f_offset + 1, size=n_orders - 1)
+            order_offsets = np.concatenate([[l_offset], intermediate_offsets])
+            order_offsets = np.sort(
+                order_offsets
+            )  # ascending (l_offset is smallest, i.e. most recent)
 
-        for offset in order_offsets:
+        for o_idx in range(n_orders):
+            offset = int(order_offsets[o_idx])
+            order_spend = max(5.0, float(order_target_spends[o_idx]))
+
             order_date = end_date - timedelta(
-                days=int(offset),
+                days=offset,
                 hours=int(np.random.randint(8, 19)),
                 minutes=int(np.random.randint(0, 60)),
                 seconds=int(np.random.randint(0, 60)),
             )
 
-            # Apply seasonality probability
-            month = order_date.month
-            if np.random.rand() > month_weights.get(month, 1.0) / 2.0 and n_orders > 3:
-                continue
-
             invoice_str = str(invoice_counter)
             invoice_counter += 1
 
-            # Number of distinct items in basket (1 to 8 items)
-            basket_size = int(
-                np.random.choice([1, 2, 3, 4, 5, 8], p=[0.25, 0.25, 0.20, 0.15, 0.10, 0.05])
-            )
-            item_indices = np.random.choice(n_catalog, size=basket_size, replace=False)
-
-            # Is this invoice cancelled? (~5.5% probability)
+            # Is this invoice cancelled? (~5.2% probability)
             is_cancelled = np.random.rand() < settings.synthetic_data.cancellation_rate
             if is_cancelled:
                 invoice_str = f"C{invoice_str}"
 
-            for idx in item_indices:
-                stock_code, desc, base_price = PRODUCT_CATALOG[idx]
+            # Number of distinct items in basket (1 to 6 items)
+            basket_size = int(
+                np.random.choice([1, 2, 3, 4, 5, 6], p=[0.20, 0.30, 0.25, 0.15, 0.07, 0.03])
+            )
+            item_indices = np.random.choice(n_catalog, size=basket_size, replace=False)
 
-                # Customer tier spend multiplier: scale quantity or price slightly
-                tier_mult = max(0.5, float(raw_weights[i] ** 0.4))
-                qty = int(
-                    np.random.choice(
-                        [1, 2, 3, 4, 6, 12, 24], p=[0.40, 0.22, 0.14, 0.10, 0.08, 0.04, 0.02]
-                    )
-                )
-                qty = max(1, int(round(qty * tier_mult)))
+            # Spend per item in basket
+            if basket_size == 1:
+                item_spends = [order_spend]
+            else:
+                item_spends = order_spend * np.random.dirichlet(np.ones(basket_size))
 
-                # Add price noise +/- 5%
-                price = round(base_price * float(np.random.uniform(0.95, 1.05)), 2)
+            for b_idx in range(basket_size):
+                stock_code, desc, base_price = PRODUCT_CATALOG[item_indices[b_idx]]
+                price = round(base_price * float(np.random.uniform(0.96, 1.04)), 2)
+
+                item_spend = max(price, float(item_spends[b_idx]))
+                qty = max(1, int(round(item_spend / price)))
 
                 if is_cancelled:
                     qty = -abs(qty)
