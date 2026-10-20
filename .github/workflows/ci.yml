@@ -6,18 +6,15 @@ on:
   pull_request:
     branches: [ main, master ]
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE20: "true"
-
 jobs:
   test-and-lint:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up Python 3.11
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
           cache: "pip"
@@ -37,8 +34,9 @@ jobs:
 
       - name: Ensure SQLite Database Exists
         run: |
-          python -c "from pathlib import Path; from src.churn.pipeline import run_pipeline; p = Path('data/churnguard.db'); run_pipeline('score') if not p.exists() else None"
+          python -c "from pathlib import Path; from src.churn.pipeline import run_pipeline; p = Path('data/churnguard.db'); run_pipeline('score') if not p.exists() else print('SQLite database verified.')"
 
       - name: Run Pytest Test Suite
         run: |
           pytest tests/ -v
+

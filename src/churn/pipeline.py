@@ -107,6 +107,18 @@ def run_all_steps() -> None:
     logger.info("=================================================================")
 
 
+def run_pipeline(command: str = "run-all") -> None:
+    """Convenience dispatcher for running pipeline stages programmatically."""
+    if command == "train":
+        run_training_step()
+    elif command == "score":
+        run_scoring_step()
+    elif command == "run-all":
+        run_all_steps()
+    else:
+        raise ValueError(f"Unknown pipeline command: {command}")
+
+
 def main() -> None:
     """CLI entrypoint dispatcher."""
     parser = argparse.ArgumentParser(description="ChurnGuard Pipeline CLI")
@@ -117,13 +129,7 @@ def main() -> None:
     )
 
     args = parser.parse_args()
-
-    if args.command == "train":
-        run_training_step()
-    elif args.command == "score":
-        run_scoring_step()
-    elif args.command == "run-all":
-        run_all_steps()
+    run_pipeline(args.command)
 
 
 if __name__ == "__main__":
