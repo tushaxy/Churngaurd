@@ -57,3 +57,5 @@ known-first-party = ["src", "api", "app"]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 addopts = "-v --tb=short"
+pythonpath = ["."]
+
