@@ -6,9 +6,12 @@ on:
   pull_request:
     branches: [ main, master ]
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE20: "true"
+
 jobs:
   test-and-lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -31,6 +34,10 @@ jobs:
       - name: Run Black Code Formatter Check
         run: |
           black --check .
+
+      - name: Ensure SQLite Database Exists
+        run: |
+          python -c "from pathlib import Path; from src.churn.pipeline import run_pipeline; p = Path('data/churnguard.db'); run_pipeline('score') if not p.exists() else None"
 
       - name: Run Pytest Test Suite
         run: |

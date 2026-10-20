@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import io
 import os
-from pathlib import Path
 import sqlite3
+from pathlib import Path
 from typing import Any
 
 import pandas as pd
@@ -54,6 +54,7 @@ def read_csv_robust(file_or_path: Any, **kwargs: Any) -> pd.DataFrame:
 
     decoded = content_bytes.decode("utf-8", errors="replace")
     return pd.read_csv(io.StringIO(decoded), **kwargs)
+
 
 API_BASE_URL = os.getenv("FASTAPI_URL", "http://localhost:8000")
 

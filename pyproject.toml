@@ -22,12 +22,17 @@ exclude = '''
   | \.venv
   | build
   | dist
+  | notebooks
 )/
 '''
 
 [tool.ruff]
 line-length = 100
 target-version = "py311"
+extend-exclude = [
+    "notebooks",
+    "*.ipynb",
+]
 
 [tool.ruff.lint]
 select = [
