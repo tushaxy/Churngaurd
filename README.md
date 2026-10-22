@@ -74,7 +74,7 @@ The production dashboard features a unified, bespoke design system with an execu
 | 1. Executive Overview | 2. Customer Segmentation |
 | :---: | :---: |
 | ![Executive Overview](docs/screenshots/01_executive_overview.png) | ![Customer Segmentation](docs/screenshots/02_customer_segmentation.png) |
-| *Macro KPIs, 24M revenue trends with churn overlay, segment donut, and top action cards.* | *2D spend bubble scatter, 3D RFM scatter, segment treemap, and 10 playbook strategies.* |
+| *Macro KPIs, 24M revenue trends with churn overlay, segment donut, and top action cards.* | *2D spend bubble scatter, 3D RFM scatter, segment treemap, and 10 playbook strategies.*|
 
 | 3. Real-Time Prediction & SHAP | 4. Batch Scoring Engine |
 | :---: | :---: |
